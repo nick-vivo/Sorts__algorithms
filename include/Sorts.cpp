@@ -2,7 +2,8 @@
 #include <iostream>
 #include <exception>
 #include <chrono>
-
+#include <iterator>
+#include <string>
 
 namespace mstd
 {
@@ -18,11 +19,12 @@ inline void swapNative(T &first, T &second)
     second = tmp;
 }
 
-std::ostream& operator<<(std::ostream& stream, std::vector<int> vec)
+template<typename T>
+std::ostream& operator<<(std::ostream& stream, std::vector<T> vec)
 {
-    std::cout << "Vector<int>: (";
+    std::cout << "Vector<...>: (";
     
-    std::vector<int>::iterator it = vec.begin();
+    typename std::vector<T>::iterator it = vec.begin();
 
     while ( it != vec.end() )
     {
@@ -153,25 +155,19 @@ inline t_size distance(Iterator begin, Iterator end)
 template<class Iterator>
 void shellSort(Iterator begin, Iterator end)
 {
-    Iterator fake_begin;
+    size_t length = mstd::distance(begin, end);
+    size_t step = length / 2;
 
-    t_size length = distance(begin, end);
-    t_size step = length / 2;
-
-    
     while(step > 0)
     { 
-        for( Iterator i = begin; i != (end - step); ++i )
+        for (Iterator i = begin; i != end; ++i)
         {
-            fake_begin = i;
-
-            while( fake_begin != begin && (*(begin + i) > *(begin + step + i)) )
+            for (Iterator j = i; j >= begin + step && (*j < *(j - step)); j -= step)
             {
-                swapNative(*(begin + i), *(begin + step + i));
-                fake_begin -= step;
+                mstd::swapNative(j, j - step);
             }
         }
-        step/=2;
+        step /= 2;
     }
 }
 
@@ -181,6 +177,7 @@ void shellSort(Iterator begin, Iterator end)
  * 
  *  @param  end  First parametr for this function. This parametr = end iterator. Doesn't use bad Iterator!
  */
+
 template<class Iterator>
 void cocktailSort(Iterator begin, Iterator end)
 {
@@ -206,42 +203,64 @@ void cocktailSort(Iterator begin, Iterator end)
 template<class Iterator>
 void quickSort(Iterator begin, Iterator end)
 {
-    if (begin < end)
+    if (mstd::distance(begin, end) > 1)
     {
         Iterator left = begin;
-        Iterator right = end;
-        Iterator middle = begin + distance(begin, end) / 2;
+        Iterator right = std::prev(end); 
+        Iterator middle = begin + mstd::distance(begin, end) / 2 ;
 
         do
         {
             while (*left < *middle)
                 ++left;
             while (*middle < *right)
-                ++right;
+                --right;
 
             if (left <= right)
             {
                 swapNative(*left, *right);
                 ++left;
-                ++right;
+                --right;
             }
-        } while (left < right);
+        } while (left <= right);
+
         quickSort(begin, right);
         quickSort(left, end);
     }
 }
 
-
 //#3
 
+
+
 };
+
+
 
 using namespace mstd;
 
 int main()
 {
 
-    std::vector<int> b = {7, 3, 5, 123, 3, 3 ,1, 0};
+    // std::vector<int> b = {7, 3, 5, 123, 3, 3 ,1, 0};
+
+    // std::cout << "\nБыло: " << b;
+
+
+    // auto start = std::chrono::high_resolution_clock::now();
+    // cocktailSort( b.begin(), b.end());
+    // auto end = std::chrono::high_resolution_clock::now();
+
+
+
+    // std::cout << "\nСтало: " << b;
+
+    // auto elapsed_seconds = end - start;
+
+    // std::cout << "Затраченное время: " << elapsed_seconds.count() << "\n";
+
+
+    std::vector<std::string> b = {"asdi", "sadio", "zasdi", "calka"};
 
     std::cout << "\nБыло: " << b;
 
@@ -257,5 +276,4 @@ int main()
     auto elapsed_seconds = end - start;
 
     std::cout << "Затраченное время: " << elapsed_seconds.count() << "\n";
-
 }
