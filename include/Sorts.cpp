@@ -231,10 +231,19 @@ void quickSort(Iterator begin, Iterator end)
 
 //#3
 
+}
+
+// //Для реверсии операторов, если нужно
+// bool operator<(const std::string& first, const std::string& second)
+// {
+//     return first > second;
+// }
 
 
-};
-
+// bool operator>(const std::string& first, const std::string& second)
+// {
+//     return first < second;
+// }
 
 
 using namespace mstd;
