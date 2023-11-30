@@ -7,7 +7,11 @@
                 "/usr/include",
                 "/usr/include/",
                 "/usr/include/*",
-                "/usr/include/**"
+                "/usr/include/**",
+                "${workspaceFolder}/modules/STL/include/**",
+                "${workspaceFolder}/modules/STL/include/*",
+                "${workspaceFolder}/modules/STL/include/",
+                "${workspaceFolder}/modules/STL/include"
                 
             ],
             "defines": [],

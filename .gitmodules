@@ -1,0 +1,3 @@
+[submodule "modules/STL"]
+	path = modules/STL
+	url = https://github.com/nick-vivo/STL.git
