@@ -1,14 +1,15 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <sort.hh>
+#include <sorts.hh>
+#include <sorts_2.hh>
 #include <list.h>
 #include <memory.h>
 
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, std::vector<T> vec)
 {
-    std::cout << "Vector<" << "..." << ">: (";
+    std::cout << "Vector<" << "..." << ">: {";
     
     typename std::vector<T>::iterator it = vec.begin();
 
@@ -22,7 +23,32 @@ std::ostream& operator<<(std::ostream& stream, std::vector<T> vec)
         }
     }
 
-    stream << ");\n";
+    stream << "};\n";
+
+    return stream;
+}
+
+
+template<>
+std::ostream& operator<<(std::ostream& stream, std::vector<std::string> vec)
+{
+    std::cout << "Vector<" << "..." << ">: {";
+    
+    typename std::vector<std::string>::iterator it = vec.begin();
+
+    while ( it != vec.end() )
+    {
+
+        stream <<"\"";
+        stream << *it++;
+        stream <<"\"";
+        if (it != vec.end())
+        {
+            stream << ", ";
+        }
+    }
+
+    stream << "};\n";
 
     return stream;
 }
@@ -30,21 +56,19 @@ std::ostream& operator<<(std::ostream& stream, std::vector<T> vec)
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, mstd::List<T> vec)
 {
-    std::cout << "List<" << "..." << ">: (";
+    std::cout << "List<" << "..." << ">: {";
     
-    mstd::Iterator it = vec.begin();
-
-    while ( it != vec.end() )
+    for(int i = 0; i < vec.size(); ++i)
     {
-        stream << *it++;
+        stream << vec[i];
 
-        if (it != vec.end())
+        if (i != vec.size() - 1)
         {
             stream << ", ";
         }
     }
 
-    stream << ");\n";
+    stream << "};\n";
 
     return stream;
 }
@@ -53,11 +77,26 @@ int main()
 {
 
 
-    mstd::List<int> abs = {3, 443, 123, 593, 1, 0 ,4, -1 , 4};
+    mstd::List<int> abs = {3, 443, 123, 593, 1, 0 ,4, -1 , 4, 1};
+    mstd::List<int> list = {-1, 0, 1, 1, 3, 4, 4, 123, 443, 593};
     
-    mstd::quick_sort(abs.begin(), abs.end());
+    mstd::bubbleSort(abs.begin(), abs.end());
 
-
-
+    std::cout << "\n\n" << "Они: " << (abs == list) << "\n\n";
     std::cout << abs;
+    std::cout << list;
+
+    
+    std::vector<std::string> strs = {"d23jisfd", "cadok", "ass", "cdo9e", "abijd", "zx", "adir"};
+    std::vector<std::string> strs_good{"abijd", "adir", "ass", "cadok", "cdo9e", "d23jisfd", "zx"};
+    
+    sort::stats st = sort::heapSort(strs.begin(), strs.end());
+
+    std::cout << "\n\n" << "Они: " << (strs == strs_good) << "\n\n";
+
+    std::cout << strs;
+    std::cout << strs_good;
+
+
+    std::cout << st.comp_count << " ||TEST|| " << st.copy_count;
 }
