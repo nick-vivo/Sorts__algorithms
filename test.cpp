@@ -1,10 +1,13 @@
+//STL
 #include <vector>
 #include <string>
 #include <iostream>
+
+//MSTL
 #include <sorts.hh>
 #include <sorts_2.hh>
 #include <list.h>
-#include <memory.h>
+
 
 template<typename T>
 std::ostream& operator<<(std::ostream& stream, std::vector<T> vec)
@@ -75,8 +78,7 @@ std::ostream& operator<<(std::ostream& stream, mstd::List<T> vec)
 
 int main()
 {
-
-
+//Демонстрация работы со своими структурами данных
     mstd::List<int> abs = {3, 443, 123, 593, 1, 0 ,4, -1 , 4, 1};
     mstd::List<int> list = {-1, 0, 1, 1, 3, 4, 4, 123, 443, 593};
     
@@ -86,7 +88,7 @@ int main()
     std::cout << abs;
     std::cout << list;
 
-    
+//Работа совместно со стандартной библиотекой stl
     std::vector<std::string> strs = {"d23jisfd", "cadok", "ass", "cdo9e", "abijd", "zx", "adir"};
     std::vector<std::string> strs_good{"abijd", "adir", "ass", "cadok", "cdo9e", "d23jisfd", "zx"};
     
