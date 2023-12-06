@@ -12,7 +12,7 @@ namespace sort
 
         stats(): comp_count(0), copy_count(0){}
 
-        stats& operator+=( stats& other)
+        stats& operator+=( const stats& other)
         {
             this->comp_count += other.comp_count;
 
@@ -243,8 +243,8 @@ namespace sort
             }
             --left;
             sort::swapNative(*first, *left, st);
-            st += quickSort(first, left);
-            st += quickSort(right, last);
+            st += sort::quickSort(first, left);
+            st += sort::quickSort(right, last);
         }
 
         return st;

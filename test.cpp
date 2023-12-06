@@ -82,8 +82,8 @@ int main()
     mstd::List<int> abs = {3, 443, 123, 593, 1, 0 ,4, -1 , 4, 1};
     mstd::List<int> list = {-1, 0, 1, 1, 3, 4, 4, 123, 443, 593};
     
-    mstd::bubbleSort(abs.begin(), abs.end());
-
+    std::cout << list;
+    
     std::cout << "\n\n" << "Они: " << (abs == list) << "\n\n";
     std::cout << abs;
     std::cout << list;
@@ -92,7 +92,7 @@ int main()
     std::vector<std::string> strs = {"d23jisfd", "cadok", "ass", "cdo9e", "abijd", "zx", "adir"};
     std::vector<std::string> strs_good{"abijd", "adir", "ass", "cadok", "cdo9e", "d23jisfd", "zx"};
     
-    sort::stats st = sort::heapSort(strs.begin(), strs.end());
+    sort::stats st = sort::quickSort(strs.begin(), strs.end());
 
     std::cout << "\n\n" << "Они: " << (strs == strs_good) << "\n\n";
 
